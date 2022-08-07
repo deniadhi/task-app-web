@@ -20,7 +20,9 @@ const {
   tick, person, date, task: taskImage, clock
 } = Images;
 const {
-  taskText, assigneeText, deadlineText, finishText, pendingText, buttonText
+  taskText, assigneeText, deadlineText,
+  finishText, pendingText, buttonText,
+  deleteButtonText
 } = Lang;
 
 const Task = (props) => {
@@ -115,7 +117,7 @@ const Task = (props) => {
         {buttonText}
       </DetailButton>
       <DetailButton onClick={onDeleteButtonPressed}>
-        Hapus
+        {deleteButtonText}
       </DetailButton>
     </ButtonContainer>
   );

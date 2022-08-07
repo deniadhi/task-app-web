@@ -14,8 +14,14 @@ import {
   ButtonContainer, RadioContainer
 } from './PopupMenu.styles';
 import utils from '../../../Utils';
+import Lang from '../../../Lang';
 
 const { saveTask, updateTask } = utils;
+const {
+  popupTitleText, popupDetailText, popupAssigneeText,
+  popupDeadlineText, popupCancelText, popupSubmitText,
+  finishText, pendingText
+} = Lang;
 const MAX_LENGTH = 30;
 
 const PopupMenu = (props) => {
@@ -52,7 +58,7 @@ const PopupMenu = (props) => {
   const handleCancelButton = () => {
     setDetail('');
     setAssignee('');
-    setDeadline();
+    setDeadline(now);
     setFinished(false);
     setEditedTask();
     onCancelPressed();
@@ -70,7 +76,7 @@ const PopupMenu = (props) => {
 
     setDetail('');
     setAssignee('');
-    setDeadline();
+    setDeadline(now);
     setEditedTask();
     setFinished(false);
     setIsPopupOpen(false);
@@ -100,11 +106,11 @@ const PopupMenu = (props) => {
     >
       <ContentContainer>
         <Title>
-          Silakan isi data berikut
+          {popupTitleText}
         </Title>
         <FormContainer>
           <FormFieldContainer>
-            <KeyForm>Detail Tugas</KeyForm>
+            <KeyForm>{popupDetailText}</KeyForm>
             <InputAreaForm
               onChange={(input) => {
                 const text = input.target.value;
@@ -117,7 +123,7 @@ const PopupMenu = (props) => {
             />
           </FormFieldContainer>
           <FormFieldContainer>
-            <KeyForm>Assignee</KeyForm>
+            <KeyForm>{popupAssigneeText}</KeyForm>
             <InputForm
               onChange={(input) => {
                 const text = input.target.value;
@@ -130,7 +136,7 @@ const PopupMenu = (props) => {
             />
           </FormFieldContainer>
           <FormFieldContainer>
-            <KeyForm>Deadline</KeyForm>
+            <KeyForm>{popupDeadlineText}</KeyForm>
             <DatePicker
               selected={deadline}
               onSelect={setDeadline}
@@ -144,27 +150,27 @@ const PopupMenu = (props) => {
                 onChange={() => setFinished(false)}
                 checked={!finished}
               />
-              <p>Pending</p>
+              <p>{pendingText}</p>
               <input
                 type="radio"
                 name="finish"
                 onChange={() => setFinished(true)}
                 checked={finished}
               />
-              <p>Finish</p>
+              <p>{finishText}</p>
             </RadioContainer>
           </FormFieldContainer>
           <ButtonContainer>
             <ButtonForm
               onClick={handleCancelButton}
             >
-              Batal
+              {popupCancelText}
             </ButtonForm>
             <ButtonForm
               disabled={!detail || !assignee}
               onClick={saveTaskCallback}
             >
-              Submit
+              {popupSubmitText}
             </ButtonForm>
           </ButtonContainer>
 

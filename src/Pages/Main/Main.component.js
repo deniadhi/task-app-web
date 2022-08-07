@@ -12,8 +12,9 @@ import utils from '../../Utils';
 import { Task } from './Task';
 import { Spinner } from './Spinner';
 import { PopupMenu } from './PopupMenu';
+import { EmptyState } from './EmptyState';
 
-const { headerText, subtitleText } = lang;
+const { headerText, subtitleText, addTaskButtonText } = lang;
 const { getAllTask } = utils;
 
 const mapTasks = (tasks) => tasks.map(({
@@ -30,7 +31,7 @@ const Main = () => {
   const [openSnackbar] = useSnackbar();
 
   const setOpenSnackbar = () => {
-    const message = 'Gagal Memuat Data';
+    const message = 'Error fetching data';
     const duration = 2000;
     openSnackbar(message, duration);
   };
@@ -57,6 +58,7 @@ const Main = () => {
       setOpenSnackbar={setOpenSnackbar}
     />
   );
+
   const renderTasks = () => {
     const mappedTasks = mapTasks(tasks);
     return (
@@ -64,6 +66,16 @@ const Main = () => {
         {mappedTasks.map(renderTask)}
       </TasksContainer>
     );
+  };
+
+  const renderEmptyState = () => (
+    <EmptyState />
+  );
+
+  const renderBody = () => {
+    const shouldRenderEmptyState = !tasks.length && !isSpinnerOpen;
+
+    return shouldRenderEmptyState ? renderEmptyState() : renderTasks();
   };
 
   return (
@@ -92,12 +104,12 @@ const Main = () => {
           <AddButton
             onClick={() => setIsPopupOpen(true)}
           >
-            Tambah Tugas
+            {addTaskButtonText}
           </AddButton>
         </SubHeaderContainer>
       </Header>
       <MainContainer>
-        {renderTasks()}
+        {renderBody()}
       </MainContainer>
     </>
 

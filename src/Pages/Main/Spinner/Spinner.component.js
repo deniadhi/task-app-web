@@ -25,7 +25,7 @@ const Spinner = (props) => {
       lockScroll
     >
       <RotatingLines
-        strokeColor="rgb(4,59,125)"
+        strokeColor="rgba(255,255,255,0.8)"
         strokeWidth="5"
         animationDuration="0.75"
         width="96"
